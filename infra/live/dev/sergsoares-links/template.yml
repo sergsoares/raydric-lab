@@ -9,7 +9,7 @@ metadata:
   name: littlelink-server
   namespace: littlelink-server
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: littlelink-server      
@@ -63,6 +63,31 @@ spec:
           
           - name: AVATAR_URL
             value: https://pbs.twimg.com/profile_images/1569104882791075844/TpmOvz7v_400x400.jpg
+
+          - name: CUSTOM_BUTTON_TEXT
+            value: Blog
+
+          - name: CUSTOM_BUTTON_URL
+            value: https://sergsoares.github.io/
+          
+          - name: CUSTOM_BUTTON_COLOR
+            value: '#000000,#000000'
+          
+          - name: CUSTOM_BUTTON_TEXT_COLOR
+            value: '#ffffff,#ffffff'
+
+          - name: CUSTOM_BUTTON_ALT_TEXT
+            value: Blog
+          
+          - name: CUSTOM_BUTTON_NAME
+            value: BLOG
+
+          - name: CUSTOM_BUTTON_ICON
+            value: 'fas file-alt'
+
+          - name: BUTTON_ORDER
+            value: TWITTER,GITHUB,LINKED_IN,BLOG
+      
         ports:
           - containerPort: 3000
             name: http
