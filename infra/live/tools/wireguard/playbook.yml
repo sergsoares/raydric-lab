@@ -35,7 +35,7 @@
 
   - name: Create publickey
     shell: |
-      cat /etc/wireguard/privatekey | wg pubkey
+      cat /etc/wireguard/privatekey | wg pubkey > /etc/wireguard/publickey
     args:
       executable: /bin/bash
     when: not publickey_exists.stat.exists
