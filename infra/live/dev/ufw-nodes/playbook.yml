@@ -1,0 +1,89 @@
+---
+- name: Getting facts
+  hosts: all
+  become: true
+  gather_facts: true
+
+  tasks:
+  - name: Outgoing allow
+    community.general.ufw:
+      direction: outgoing
+      policy: allow
+
+  - name: Allow SSH access
+    community.general.ufw:
+      rule: allow
+      port: '22'
+      proto: tcp
+      src: '{{ item }}'
+    loop:
+      - 191.223.66.162
+      - 189.1.173.229
+      - 189.1.173.164
+      - 103.50.33.59
+      - 66.203.113.98
+      - 194.110.113.124
+      - 193.239.87.36
+      - 45.84.120.12
+      - 79.110.54.108
+      - 193.37.253.52
+      - 89.40.206.236
+      - 193.37.254.44
+      - 91.193.6.20
+      - 103.14.26.44
+      - 91.250.240.105
+    
+  - name: Allow K8S access
+    community.general.ufw:
+      rule: allow
+      port: '6443'
+      proto: tcp
+      src: '{{ item }}'
+    loop:
+      - 191.223.66.162
+      - 189.1.173.229
+      - 189.1.173.164
+      - 103.50.33.59
+      - 66.203.113.98
+      - 194.110.113.124
+      - 193.239.87.36
+      - 45.84.120.12
+      - 79.110.54.108
+      - 193.37.253.52
+      - 89.40.206.236
+      - 193.37.254.44
+      - 91.193.6.20
+      - 103.14.26.44
+      - 91.250.240.105
+  
+  - name: Allow TLS access outside
+    community.general.ufw:
+      rule: allow
+      port: '6443'
+      proto: tcp
+      src: '{{ item }}'
+    loop:
+      - 173.245.48.0/20
+      - 103.21.244.0/22
+      - 103.22.200.0/22
+      - 103.31.4.0/22
+      - 141.101.64.0/18
+      - 108.162.192.0/18
+      - 190.93.240.0/20
+      - 188.114.96.0/20
+      - 197.234.240.0/22
+      - 198.41.128.0/17
+      - 162.158.0.0/15
+      - 104.16.0.0/13
+      - 104.24.0.0/14
+      - 172.64.0.0/13
+      - 131.0.72.0/22
+
+  - name: Incoming deny
+    community.general.ufw:
+      direction: incoming
+      policy: deny
+
+  - name: enable UFW
+    community.general.ufw:
+      state: enabled
