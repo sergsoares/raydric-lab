@@ -1,0 +1,1 @@
+k3sup join --host raydric.dev02.ourlab.cc --server-host raydric.dev01.ourlab.cc --user ubuntu
