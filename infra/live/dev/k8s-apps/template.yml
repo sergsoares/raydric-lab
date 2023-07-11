@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: littlelink-server
-  namespace: littlelink-server
 spec:
   replicas: 2
   selector:
