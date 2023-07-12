@@ -1,0 +1,127 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: littlelink-server
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: littlelink-server
+  namespace: littlelink-server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: littlelink-server      
+  template:
+    metadata:
+      labels:
+        app: littlelink-server
+    spec:
+      containers:
+      - name: littlelink-server
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: META_TITLE
+            value: Sergsoares
+          
+          - name: META_AUTHOR
+            value: Sergsoares
+
+          - name: THEME
+            value: Dark
+
+          - name: OG_SITE_NAME
+            value: Sergsoares
+          
+          - name: OG_TITLE
+            value: Sergsoares
+          
+          - name: OG_DESCRIPTION
+            value: Sergsoares
+          
+          - name: NAME
+            value: Sergsoares
+
+          - name: OG_IMAGE
+            value: https://pbs.twimg.com/profile_images/1569104882791075844/TpmOvz7v_400x400.jpg
+
+          - name: TWITTER
+            value: https://twitter.com/sergsoares
+            
+          - name: GITHUB
+            value: https://github.com/sergsoares
+          
+          - name: LINKED_IN
+            value: https://www.linkedin.com/in/sergsoares
+
+          - name: FOOTER
+            value: Sergsoares © 2023
+
+          - name: FAVICON_URL
+            value: https://pbs.twimg.com/profile_images/1569104882791075844/TpmOvz7v_400x400.jpg
+          
+          - name: AVATAR_URL
+            value: https://pbs.twimg.com/profile_images/1569104882791075844/TpmOvz7v_400x400.jpg
+
+          - name: CUSTOM_BUTTON_TEXT
+            value: Blog
+
+          - name: CUSTOM_BUTTON_URL
+            value: https://sergsoares.github.io/
+          
+          - name: CUSTOM_BUTTON_COLOR
+            value: '#000000,#000000'
+          
+          - name: CUSTOM_BUTTON_TEXT_COLOR
+            value: '#ffffff,#ffffff'
+
+          - name: CUSTOM_BUTTON_ALT_TEXT
+            value: Blog
+          
+          - name: CUSTOM_BUTTON_NAME
+            value: BLOG
+
+          - name: CUSTOM_BUTTON_ICON
+            value: 'fas file-alt'
+
+          - name: BUTTON_ORDER
+            value: BLOG,TWITTER,GITHUB,LINKED_IN
+      
+        ports:
+          - containerPort: 3000
+            name: http
+        image: ghcr.io/techno-tim/littlelink-server@sha256:0e25c4067ee528d01829b1952b35389df91be304a491448811f367045bf7ab60 # TODO use SHA
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: littlelink-server
+  namespace: littlelink-server
+spec:
+  ports:
+  - name: http
+    port: 3000
+    targetPort: 3000
+  selector:
+    app: littlelink-server
+  type: ClusterIP
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: littlelink-server
+  namespace: littlelink-server
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: sergsoares-com
+    domains:
+    - main: sergsoares.com 
+  routes:
+    - kind: Rule
+      match: Host(`sergsoares.com`)
+      services:
+        - name: littlelink-server
+          port: 3000
