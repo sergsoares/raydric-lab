@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: littlelink-server
+  name: test-app
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: littlelink-server      
+      app: test-app      
   template:
     metadata:
       labels:
-        app: littlelink-server
+        app: test-app
     spec:
       containers:
-      - name: littlelink-server
+      - name: test-app
         imagePullPolicy: IfNotPresent
         env:
           - name: META_TITLE
@@ -85,4 +85,4 @@ spec:
         ports:
           - containerPort: 3000
             name: http
-        image: ghcr.io/techno-tim/littlelink-server:latest # TODO use SHA
+        image: nginx
