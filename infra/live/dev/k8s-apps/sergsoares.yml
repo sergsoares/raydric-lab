@@ -91,7 +91,7 @@ spec:
         ports:
           - containerPort: 3000
             name: http
-        image: ghcr.io/techno-tim/littlelink-server@sha256:0e25c4067ee528d01829b1952b35389df91be304a491448811f367045bf7ab60 # TODO use SHA
+        image: ghcr.io/techno-tim/littlelink-server@sha256:0e25c4067ee528d01829b1952b35389df91be304a491448811f367045bf7ab60
 ---
 apiVersion: v1
 kind: Service
