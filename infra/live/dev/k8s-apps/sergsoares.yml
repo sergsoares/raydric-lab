@@ -86,7 +86,7 @@ spec:
             value: 'fas file-alt'
 
           - name: BUTTON_ORDER
-            value: BLOG,TWITTER,GITHUB,LINKED_IN
+            value: TWITTER,GITHUB,LINKED_IN,BLOG
       
         ports:
           - containerPort: 3000
