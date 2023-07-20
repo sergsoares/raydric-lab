@@ -1,0 +1,18 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd
+  namespace: argocd
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: sergsoares-com
+    domains:
+    - main: argocd.sergsoares.com 
+  routes:
+    - kind: Rule
+      match: Host(`argocd.sergsoares.com`)
+      services:
+        - name: argocd-server
+          port: 80
