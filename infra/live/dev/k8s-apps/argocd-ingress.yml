@@ -9,7 +9,7 @@ spec:
   tls:
     secretName: sergsoares-com
     domains:
-    - main: argocd.sergsoares.com 
+    - main: sergsoares.com 
   routes:
     - kind: Rule
       match: Host(`argocd.sergsoares.com`)
